@@ -43,8 +43,8 @@ class Board
 
   def mark(number)
     return unless @numbers[number]
-    return if @completed
     @numbers[number][:marked] = true
+    return if @completed
     if check_marked!
       calculate_score(number)
     else

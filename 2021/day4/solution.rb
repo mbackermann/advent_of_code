@@ -2,7 +2,7 @@ module Day4
 
   class << self
 
-    def solution
+    def run
       winners = []
       input = File.open('input.txt').read
       draws, *boards = input.split("\n\n")
@@ -45,7 +45,7 @@ class Board
     return unless @numbers[number]
     @numbers[number][:marked] = true
     return if @completed
-    if check_marked!
+    if solved?
       calculate_score(number)
     else
       false
@@ -57,15 +57,14 @@ class Board
     unchecked_numbers.keys.map(&:to_i).sum * number.to_i
   end
 
-  def check_marked!
+  def solved?
     checked_numbers = @numbers.select { |k, v| v[:marked] == true }
     if checked_numbers.group_by { |k, v| v[:i] }.any? { |row| row[1].length == @rows_count } ||
        checked_numbers.group_by { |k, v| v[:j] }.any? { |col| col[1].length == @cols_count }
-       @completed = true
-      return true
+       return @completed = true
     end
     false
   end
 end
 
-Day4.solution
+Day4.run

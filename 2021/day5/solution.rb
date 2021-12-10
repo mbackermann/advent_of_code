@@ -35,16 +35,16 @@ class Line
 
     if @point1.x == @point2.x
       ([@point1.y, @point2.y].min..[@point1.y, @point2.y].max).to_a.map do |y|
-        "#{@point1.x},#{y}"
+        Point.new(@point1.x,y)
       end
     elsif @point1.y == @point2.y
       ([@point1.x, @point2.x].min..[@point1.x, @point2.x].max).to_a.map do |x|
-        "#{x},#{@point1.y}"
+        Point.new(x,@point1.y)
       end
     else
       xs = ([@point1.x, @point2.x].min..[@point1.x, @point2.x].max).to_a.sort_by { |number| @point1.x > @point2.x ? -number : number }
       ys = ([@point1.y, @point2.y].min..[@point1.y, @point2.y].max).to_a.sort_by { |number| @point1.y > @point2.y ? -number : number }
-      xs.map.with_index { |value, index| "#{value},#{ys[index]}" }
+      xs.map.with_index { |value, index| Point.new(value, ys[index]) }
     end
   end
 end

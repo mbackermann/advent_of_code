@@ -3,12 +3,15 @@ module Day6
   NEW_CICLE_DAYS = 6
 
   class << self
+
+    # O(2ˆn)
     def part_one
       initial_lanternfish = File.open('input.txt').read.split(',').map { |n| Lanternfish.new(n.to_i) }
       lanternfish = number_of_lanternfish(initial_lanternfish, 80)
       puts lanternfish.size
     end
 
+    # O(n)
     def part_two
       initial_lanternfish = File.open('input.txt').read.split(',').collect(&:to_i)
       lanternfish = (0..NEW_FISH_DAYS + 1).map { |day| initial_lanternfish.count(day) }
